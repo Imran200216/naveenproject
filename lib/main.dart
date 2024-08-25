@@ -1,4 +1,5 @@
 import 'package:empprojectdemo/constants/colors.dart';
+import 'package:empprojectdemo/provider/admin_provider/admin_task_provider.dart';
 import 'package:empprojectdemo/provider/bottomnav_provider.dart';
 import 'package:empprojectdemo/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,11 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (_) => BottomNavProvider(),
+          ),
+
+          /// admin task provider
+          ChangeNotifierProvider(
+            create: (_) => AdminTaskProvider(),
           ),
         ],
         builder: (context, child) {

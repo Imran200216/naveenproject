@@ -1,4 +1,5 @@
 import 'package:empprojectdemo/constants/colors.dart';
+import 'package:empprojectdemo/screens/AdminBottomNavBar.dart';
 import 'package:empprojectdemo/screens/EmployeeBottomNavBar.dart';
 import 'package:empprojectdemo/widgets/mybtn.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +60,11 @@ class UserTypeScreen extends StatelessWidget {
             /// Admin btn
             MyBtn(
               btnTitle: "Admin",
-              btnOnTap: () {},
+              btnOnTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return AdminBottomNavBar();
+                }));
+              },
               imgUrl: "assets/images/svg/admin-logo-icon.svg",
               iconHeight: 26,
               iconWidth: 26,
