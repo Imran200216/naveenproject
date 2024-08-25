@@ -112,20 +112,6 @@ class AdminTaskScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-
-                    /// add task btn to user
-                    MyBtn(
-                      btnTitle: "Add Task To User",
-                      btnOnTap: () {},
-                      imgUrl: "assets/images/svg/create-task-icon.svg",
-                      iconHeight: 26,
-                      iconWidth: 26,
-                      btnBorderRadius: 4,
-                      btnHeight: 50,
-                      btnWidth: double.infinity,
-                      marginLeft: 0,
-                      marginRight: 0,
-                    ),
                   ],
                 ),
               ),

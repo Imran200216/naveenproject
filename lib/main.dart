@@ -1,18 +1,29 @@
 import 'package:empprojectdemo/constants/colors.dart';
+import 'package:empprojectdemo/firebase_options.dart';
 import 'package:empprojectdemo/provider/admin_provider/admin_task_provider.dart';
+import 'package:empprojectdemo/provider/authentication_provider/google_auth_provider.dart';
 import 'package:empprojectdemo/provider/bottomnav_provider.dart';
+import 'package:empprojectdemo/provider/internet_checker_provider.dart';
+import 'package:empprojectdemo/provider/user_type_provider.dart';
 import 'package:empprojectdemo/screens/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   /// status bar color
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: AppColors.blackColor,
       statusBarBrightness: Brightness.dark,
     ),
+  );
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const MyApp());
 }
@@ -25,6 +36,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          /// google auth provider
+          ChangeNotifierProvider(
+            create: (_) => GoogleAuthenticationProvider(),
+          ),
+
+          /// bottom nav provider
           ChangeNotifierProvider(
             create: (_) => BottomNavProvider(),
           ),
@@ -32,6 +49,16 @@ class MyApp extends StatelessWidget {
           /// admin task provider
           ChangeNotifierProvider(
             create: (_) => AdminTaskProvider(),
+          ),
+
+          /// user type provider
+          ChangeNotifierProvider(
+            create: (_) => UserTypeProvider(),
+          ),
+
+          /// internet checker provider
+          ChangeNotifierProvider(
+            create: (_) => InternetCheckerProvider(),
           ),
         ],
         builder: (context, child) {
