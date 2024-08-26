@@ -8,6 +8,7 @@ class MyTextField extends StatelessWidget {
   final String hintText;
   final String simpleTextTextFieldName;
   final IconData prefixIcon;
+  final VoidCallback? onTap;
 
   const MyTextField({
     super.key,
@@ -16,6 +17,7 @@ class MyTextField extends StatelessWidget {
     required this.hintText,
     required this.simpleTextTextFieldName,
     required this.prefixIcon,
+    this.onTap,
   });
 
   @override
@@ -34,6 +36,10 @@ class MyTextField extends StatelessWidget {
           height: 20,
         ),
         TextField(
+          onTap: onTap,
+          style: GoogleFonts.montserrat(
+            color: AppColors.blackColor,
+          ),
           controller: textFieldController,
           decoration: InputDecoration(
             labelText: textFieldName,

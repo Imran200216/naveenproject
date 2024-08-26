@@ -98,6 +98,18 @@ class AdminProfileScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 8),
+
+                /// user type
+                Text(
+                  "Admin",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 14,
+                    color: AppColors.blackColor,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+
+                const SizedBox(height: 8),
                 // Person email address
                 Text(
                   "${user.email}",

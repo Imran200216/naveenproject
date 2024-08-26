@@ -3,8 +3,11 @@ import 'package:empprojectdemo/provider/admin_provider/admin_task_provider.dart'
 import 'package:empprojectdemo/widgets/mybtn.dart';
 import 'package:empprojectdemo/widgets/mytextfield.dart';
 import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:provider/provider.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class AdminTaskScreen extends StatelessWidget {
   const AdminTaskScreen({super.key});
@@ -42,6 +45,47 @@ class AdminTaskScreen extends StatelessWidget {
                       height: 30,
                     ),
 
+                    /// add the image to the task
+                    InkWell(
+                      onTap: () async {
+                        /// pick image from functionality
+                        await adminTaskProvider.pickImages();
+                        adminTaskProvider.pageController.jumpToPage(
+                            1); // Move to the page with picked images
+                      },
+                      child: SizedBox(
+                        height: 300,
+                        width: double.infinity,
+                        child: PageView.builder(
+                          controller: adminTaskProvider.pageController,
+                          itemCount: adminTaskProvider.pageViewItems.length + 1,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return adminTaskProvider.pageViewItems[index];
+                          },
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    adminTaskProvider.selectedImages.isEmpty
+                        ? const SizedBox()
+                        : Center(
+                            child: SmoothPageIndicator(
+                              controller: adminTaskProvider.pageController,
+                              count: adminTaskProvider.pageViewItems.length+ 1,
+                              effect: WormEffect(
+                                activeDotColor: AppColors.primaryColor,
+                                dotColor: AppColors.subTitleColor,
+                                dotHeight: 8,
+                                dotWidth: 20,
+                                spacing: 16,
+                              ),
+                            ),
+                          ),
+
+                    const SizedBox(height: 40),
+
                     /// task name
                     MyTextField(
                       prefixIcon: Icons.task,
@@ -73,6 +117,12 @@ class AdminTaskScreen extends StatelessWidget {
 
                     /// Start Date Text field
                     MyTextField(
+                      onTap: () {
+                        adminTaskProvider.selectDate(
+                          context,
+                          adminTaskProvider.startDateTimeController,
+                        );
+                      },
                       prefixIcon: Icons.date_range,
                       textFieldController:
                           adminTaskProvider.startDateTimeController,
@@ -83,6 +133,12 @@ class AdminTaskScreen extends StatelessWidget {
 
                     /// End Date Text field
                     MyTextField(
+                      onTap: () {
+                        adminTaskProvider.selectDate(
+                          context,
+                          adminTaskProvider.dueDateTimeController,
+                        );
+                      },
                       prefixIcon: Icons.date_range,
                       textFieldController:
                           adminTaskProvider.dueDateTimeController,
@@ -98,7 +154,9 @@ class AdminTaskScreen extends StatelessWidget {
                     /// add task btn to user
                     MyBtn(
                       btnTitle: "Add Task To User",
-                      btnOnTap: () {},
+                      btnOnTap: () {
+                        adminTaskProvider.addTaskToEmployees(context);
+                      },
                       imgUrl: "assets/images/svg/create-task-icon.svg",
                       iconHeight: 26,
                       iconWidth: 26,

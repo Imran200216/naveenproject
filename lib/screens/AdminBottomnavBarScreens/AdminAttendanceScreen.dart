@@ -5,10 +5,10 @@ class AdminAttendanceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: Scaffold(
         body: Center(
-          child: Text("hi admin attendance Screen"),
+          child: Text("hi"),
         ),
       ),
     );

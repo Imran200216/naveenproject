@@ -63,8 +63,7 @@ class MyBtn extends StatelessWidget {
               style: GoogleFonts.montserrat(
                 fontWeight: FontWeight.w600,
                 color: AppColors.whiteColor,
-                fontSize: 12,
-
+                fontSize: 14,
               ),
             ),
           ],
