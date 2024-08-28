@@ -1,7 +1,9 @@
+import 'package:empprojectdemo/modals/EmployeeAttendanceModel.dart';
+
 import 'package:gsheets/gsheets.dart';
 
 class UserSheetsApi {
-  static const _credentials = '''
+  static const _credentials = r'''
   {
   "type": "service_account",
   "project_id": "emsproject-96c89",
@@ -26,6 +28,9 @@ class UserSheetsApi {
   static Future init() async {
     final spreadSheet = await _gSheets.spreadsheet(_spreadsheetId);
     _userSheet = await _getWorkSheet(spreadSheet, title: "Employee Attendance");
+
+    final fistRow = EmployeeAttendanceFields.getFields();
+    _userSheet!.values.insertRow(1, fistRow);
   }
 
   static Future<Worksheet> _getWorkSheet(
@@ -36,6 +41,15 @@ class UserSheetsApi {
       return await spreadSheet.addWorksheet(title);
     } catch (e) {
       return spreadSheet.worksheetByTitle(title)!;
+    }
+  }
+
+  /// inserting the data to the excel sheet
+  static Future insert(List<Map<String, dynamic>> rowList) async {
+    if (_userSheet == null) return;
+
+    for (var row in rowList) {
+      await _userSheet!.values.map.appendRow(row);
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:empprojectdemo/firebase_options.dart';
 import 'package:empprojectdemo/provider/admin_provider/admin_task_provider.dart';
 import 'package:empprojectdemo/provider/authentication_provider/google_auth_provider.dart';
 import 'package:empprojectdemo/provider/bottomnav_provider.dart';
+import 'package:empprojectdemo/provider/employee_provider/employee_attendance_provider.dart';
 import 'package:empprojectdemo/provider/employee_provider/employee_task_provider.dart';
 import 'package:empprojectdemo/provider/internet_checker_provider.dart';
 import 'package:empprojectdemo/provider/user_type_provider.dart';
@@ -70,6 +71,11 @@ class MyApp extends StatelessWidget {
         /// Employee task provider
         ChangeNotifierProvider(
           create: (_) => EmployeeTaskProvider(),
+        ),
+
+        /// Employee excel provider
+        ChangeNotifierProvider(
+          create: (_) => EmployeeAttendanceProvider(),
         ),
       ],
       builder: (context, child) {
