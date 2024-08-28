@@ -189,7 +189,21 @@ class AdminTaskProvider extends ChangeNotifier {
   }
 
   List<Widget> get pageViewItems {
-    final List<Widget> items = [
+    final List<Widget> items = [];
+
+    if (selectedImages.isNotEmpty) {
+      items.addAll(
+        selectedImages.map((image) => Image.file(
+              File(image.path),
+              height: 300,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            )),
+      );
+    }
+
+    // Add the default upload placeholder at the end
+    items.add(
       DottedBorder(
         dashPattern: const [6, 6],
         borderType: BorderType.RRect,
@@ -229,59 +243,7 @@ class AdminTaskProvider extends ChangeNotifier {
           ),
         ),
       ),
-    ];
-
-    if (selectedImages.isNotEmpty) {
-      items.addAll(
-        selectedImages.map((image) => Image.file(
-              File(image.path),
-              height: 300,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            )),
-      );
-      items.add(
-        DottedBorder(
-          dashPattern: const [6, 6],
-          borderType: BorderType.RRect,
-          radius: const Radius.circular(12),
-          padding: const EdgeInsets.all(6),
-          color: AppColors.subTitleColor,
-          child: ClipRRect(
-            borderRadius: const BorderRadius.all(Radius.circular(12)),
-            child: Container(
-              height: 300,
-              width: double.infinity,
-              color: Colors.grey.shade200,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      'assets/images/svg/upload-icon.svg',
-                      height: 60,
-                      width: 60,
-                      fit: BoxFit.cover,
-                      color: AppColors.subTitleColor,
-                    ),
-                    const SizedBox(height: 14),
-                    Text(
-                      "Upload an image for the task",
-                      style: GoogleFonts.montserrat(
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.subTitleColor,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
-    }
+    );
 
     return items;
   }

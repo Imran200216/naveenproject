@@ -3,9 +3,7 @@ import 'package:empprojectdemo/provider/admin_provider/admin_task_provider.dart'
 import 'package:empprojectdemo/widgets/mybtn.dart';
 import 'package:empprojectdemo/widgets/mytextfield.dart';
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -48,17 +46,19 @@ class AdminTaskScreen extends StatelessWidget {
                     /// add the image to the task
                     InkWell(
                       onTap: () async {
-                        /// pick image from functionality
+                        // Pick image functionality
                         await adminTaskProvider.pickImages();
-                        adminTaskProvider.pageController.jumpToPage(
-                            1); // Move to the page with picked images
+
+                        if (adminTaskProvider.pageViewItems.isNotEmpty) {
+                          adminTaskProvider.pageController.jumpToPage(1);
+                        }
                       },
                       child: SizedBox(
                         height: 300,
                         width: double.infinity,
                         child: PageView.builder(
                           controller: adminTaskProvider.pageController,
-                          itemCount: adminTaskProvider.pageViewItems.length + 1,
+                          itemCount: adminTaskProvider.pageViewItems.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             return adminTaskProvider.pageViewItems[index];
@@ -66,6 +66,7 @@ class AdminTaskScreen extends StatelessWidget {
                         ),
                       ),
                     ),
+
                     const SizedBox(height: 20),
 
                     adminTaskProvider.selectedImages.isEmpty
@@ -73,7 +74,7 @@ class AdminTaskScreen extends StatelessWidget {
                         : Center(
                             child: SmoothPageIndicator(
                               controller: adminTaskProvider.pageController,
-                              count: adminTaskProvider.pageViewItems.length+ 1,
+                              count: adminTaskProvider.pageViewItems.length,
                               effect: WormEffect(
                                 activeDotColor: AppColors.primaryColor,
                                 dotColor: AppColors.subTitleColor,

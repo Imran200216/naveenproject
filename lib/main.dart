@@ -1,8 +1,10 @@
+import 'package:empprojectdemo/api/employee_sheets_api.dart';
 import 'package:empprojectdemo/constants/colors.dart';
 import 'package:empprojectdemo/firebase_options.dart';
 import 'package:empprojectdemo/provider/admin_provider/admin_task_provider.dart';
 import 'package:empprojectdemo/provider/authentication_provider/google_auth_provider.dart';
 import 'package:empprojectdemo/provider/bottomnav_provider.dart';
+import 'package:empprojectdemo/provider/employee_provider/employee_task_provider.dart';
 import 'package:empprojectdemo/provider/internet_checker_provider.dart';
 import 'package:empprojectdemo/provider/user_type_provider.dart';
 import 'package:empprojectdemo/screens/splash_screen.dart';
@@ -22,6 +24,10 @@ void main() async {
     ),
   );
 
+  /// to access the excel documents
+  await UserSheetsApi.init();
+
+  /// to access the fire base
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -59,6 +65,11 @@ class MyApp extends StatelessWidget {
           /// internet checker provider
           ChangeNotifierProvider(
             create: (_) => InternetCheckerProvider(),
+          ),
+
+          /// Employee task provider
+          ChangeNotifierProvider(
+            create: (_) => EmployeeTaskProvider(),
           ),
         ],
         builder: (context, child) {

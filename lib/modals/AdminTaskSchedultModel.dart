@@ -17,7 +17,20 @@ class AdminTaskScheduleModel {
     required this.taskImages,
   });
 
-  /// Convert a Task object into a Map object
+  // Convert a Fire store document map into a model instance
+  factory AdminTaskScheduleModel.fromMap(Map<String, dynamic> map) {
+    return AdminTaskScheduleModel(
+      taskName: map['taskName'] ?? '',
+      taskAssignedPerson: map['taskAssignedPerson'] ?? '',
+      taskGivenPerson: map['taskGivenPerson'] ?? '',
+      taskStartedDate: map['taskStartedDate'] as Timestamp,
+      taskDueDate: map['taskDueDate'] as Timestamp,
+      taskImages:
+          List<String>.from(map['taskImages'] ?? []), // Cast to List<String>
+    );
+  }
+
+  // Convert a model instance into a Fire store document map
   Map<String, dynamic> toMap() {
     return {
       'taskName': taskName,
@@ -27,17 +40,5 @@ class AdminTaskScheduleModel {
       'taskDueDate': taskDueDate,
       'taskImages': taskImages,
     };
-  }
-
-  /// Create a Task object from a Map object
-  factory AdminTaskScheduleModel.fromMap(Map<String, dynamic> map) {
-    return AdminTaskScheduleModel(
-      taskName: map['taskName'],
-      taskAssignedPerson: map['taskAssignedPerson'],
-      taskGivenPerson: map['taskGivenPerson'],
-      taskStartedDate: map['taskStartedDate'],
-      taskDueDate: map['taskDueDate'],
-      taskImages: List<String>.from(map['taskImages']),
-    );
   }
 }

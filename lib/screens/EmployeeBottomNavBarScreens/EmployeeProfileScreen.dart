@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 class EmployeeProfileScreen extends StatelessWidget {
   const EmployeeProfileScreen({super.key});
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Consumer2<GoogleAuthenticationProvider, InternetCheckerProvider>(
       builder: (
@@ -101,7 +101,7 @@ class EmployeeProfileScreen extends StatelessWidget {
 
                 /// user type
                 Text(
-                  "User",
+                  "Employee",
                   style: GoogleFonts.montserrat(
                     fontSize: 14,
                     color: AppColors.blackColor,
