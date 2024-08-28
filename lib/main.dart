@@ -41,43 +41,44 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          /// google auth provider
-          ChangeNotifierProvider(
-            create: (_) => GoogleAuthenticationProvider(),
-          ),
+      providers: [
+        /// google auth provider
+        ChangeNotifierProvider(
+          create: (_) => GoogleAuthenticationProvider(),
+        ),
 
-          /// bottom nav provider
-          ChangeNotifierProvider(
-            create: (_) => BottomNavProvider(),
-          ),
+        /// bottom nav provider
+        ChangeNotifierProvider(
+          create: (_) => BottomNavProvider(),
+        ),
 
-          /// admin task provider
-          ChangeNotifierProvider(
-            create: (_) => AdminTaskProvider(),
-          ),
+        /// admin task provider
+        ChangeNotifierProvider(
+          create: (_) => AdminTaskProvider(),
+        ),
 
-          /// user type provider
-          ChangeNotifierProvider(
-            create: (_) => UserTypeProvider(),
-          ),
+        /// user type provider
+        ChangeNotifierProvider(
+          create: (_) => UserTypeProvider(),
+        ),
 
-          /// internet checker provider
-          ChangeNotifierProvider(
-            create: (_) => InternetCheckerProvider(),
-          ),
+        /// internet checker provider
+        ChangeNotifierProvider(
+          create: (_) => InternetCheckerProvider(),
+        ),
 
-          /// Employee task provider
-          ChangeNotifierProvider(
-            create: (_) => EmployeeTaskProvider(),
-          ),
-        ],
-        builder: (context, child) {
-          return const MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
-            home: SplashScreen(),
-          );
-        });
+        /// Employee task provider
+        ChangeNotifierProvider(
+          create: (_) => EmployeeTaskProvider(),
+        ),
+      ],
+      builder: (context, child) {
+        return const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          home: SplashScreen(),
+        );
+      },
+    );
   }
 }
