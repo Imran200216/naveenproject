@@ -8,4 +8,5 @@ class AppColors {
   static Color successToastColor = Colors.green;
   static Color failureToastColor = Colors.red;
   static Color taskTileBgColor = const Color(0xFFE8E0FF);
+  static Color greyColor = Colors.grey;
 }

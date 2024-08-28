@@ -9,6 +9,8 @@ class MyTextField extends StatelessWidget {
   final String simpleTextTextFieldName;
   final IconData prefixIcon;
   final VoidCallback? onTap;
+  final bool isReadOnly;
+  final VoidCallback? onSuffixTap;
 
   const MyTextField({
     super.key,
@@ -18,6 +20,8 @@ class MyTextField extends StatelessWidget {
     required this.simpleTextTextFieldName,
     required this.prefixIcon,
     this.onTap,
+    this.isReadOnly = false,
+    this.onSuffixTap,
   });
 
   @override
@@ -36,20 +40,23 @@ class MyTextField extends StatelessWidget {
           height: 20,
         ),
         TextField(
+          readOnly: isReadOnly,
           onTap: onTap,
           style: GoogleFonts.montserrat(
             color: AppColors.blackColor,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
           ),
           controller: textFieldController,
           decoration: InputDecoration(
             labelText: textFieldName,
             labelStyle: GoogleFonts.montserrat(
-              color: Colors.grey,
+              color: AppColors.greyColor,
               fontWeight: FontWeight.w500,
             ),
             prefixIcon: Icon(
               prefixIcon,
-              color: Colors.grey,
+              color: AppColors.greyColor,
             ),
             hintText: hintText,
             hintStyle: GoogleFonts.montserrat(
