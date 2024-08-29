@@ -154,6 +154,7 @@ class AdminTaskScreen extends StatelessWidget {
 
                     /// add task btn to user
                     MyBtn(
+                      btnColor: AppColors.primaryColor,
                       btnTitle: "Add Task To User",
                       btnOnTap: () {
                         adminTaskProvider.addTaskToEmployees(context);

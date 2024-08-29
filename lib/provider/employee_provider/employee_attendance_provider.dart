@@ -21,6 +21,7 @@ class EmployeeAttendanceProvider with ChangeNotifier {
 
   EmployeeAttendanceProvider() {
     _initSheets();
+    fetchEmployeeAttendance();
   }
 
   Future<void> _initSheets() async {
@@ -196,6 +197,31 @@ class EmployeeAttendanceProvider with ChangeNotifier {
           ],
         ),
       );
+    }
+  }
+
+  //////////////// fetching employee attendance /////////////
+
+  List<Employee> _attendanceList = [];
+
+  List<Employee> get attendanceList => _attendanceList;
+
+  Future<void> fetchEmployeeAttendance() async {
+    try {
+      _setLoading(true);
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection("employeeAttendanceDetails")
+          .get();
+
+      _attendanceList = querySnapshot.docs
+          .map((doc) => Employee.fromJson(doc.data()))
+          .toList();
+
+      notifyListeners();
+    } catch (e) {
+      _setErrorMessage("Failed to fetch employee attendance data");
+    } finally {
+      _setLoading(false);
     }
   }
 }

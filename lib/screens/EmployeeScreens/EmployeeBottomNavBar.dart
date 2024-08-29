@@ -1,9 +1,10 @@
 import 'package:empprojectdemo/constants/colors.dart';
 import 'package:empprojectdemo/provider/bottomnav_provider.dart';
-import 'package:empprojectdemo/screens/EmployeeBottomNavBarScreens/EmployeeAttendanceScreen.dart';
-import 'package:empprojectdemo/screens/EmployeeBottomNavBarScreens/EmployeeHomeScreen.dart';
-import 'package:empprojectdemo/screens/EmployeeBottomNavBarScreens/EmployeeProfileScreen.dart';
-import 'package:empprojectdemo/screens/EmployeeBottomNavBarScreens/EmployeeTaskScreen.dart';
+import 'package:empprojectdemo/screens/EmployeeScreens/EmployeeBottomNavBarScreens/EmployeeAttendanceScreen.dart';
+import 'package:empprojectdemo/screens/EmployeeScreens/EmployeeBottomNavBarScreens/EmployeeHomeScreen.dart';
+import 'package:empprojectdemo/screens/EmployeeScreens/EmployeeBottomNavBarScreens/EmployeeProfileScreen.dart';
+import 'package:empprojectdemo/screens/EmployeeScreens/EmployeeBottomNavBarScreens/EmployeeTaskScreen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';

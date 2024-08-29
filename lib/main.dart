@@ -7,6 +7,8 @@ import 'package:empprojectdemo/provider/bottomnav_provider.dart';
 import 'package:empprojectdemo/provider/employee_provider/employee_attendance_provider.dart';
 import 'package:empprojectdemo/provider/employee_provider/employee_task_provider.dart';
 import 'package:empprojectdemo/provider/internet_checker_provider.dart';
+import 'package:empprojectdemo/provider/share_plus_provider.dart';
+
 import 'package:empprojectdemo/provider/user_type_provider.dart';
 import 'package:empprojectdemo/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -76,6 +78,11 @@ class MyApp extends StatelessWidget {
         /// Employee excel provider
         ChangeNotifierProvider(
           create: (_) => EmployeeAttendanceProvider(),
+        ),
+
+        /// share plus  provider
+        ChangeNotifierProvider(
+          create: (_) => ShareProvider(),
         ),
       ],
       builder: (context, child) {

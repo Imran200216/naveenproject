@@ -22,7 +22,8 @@ class _EmployeeAttendanceScreenState extends State<EmployeeAttendanceScreen> {
   @override
   void initState() {
     super.initState();
-    // Set the initial date when the widget is initialized
+
+    /// Set the initial date when the widget is initialized
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<EmployeeAttendanceProvider>(context, listen: false)
           .setInitialDate();
@@ -138,6 +139,7 @@ class _EmployeeAttendanceScreenState extends State<EmployeeAttendanceScreen> {
 
                       /// save attendance btn
                       MyBtn(
+                        btnColor: AppColors.primaryColor,
                         btnTitle: "Save attendance report",
                         btnOnTap: () {
                           /// saving data to excel and database

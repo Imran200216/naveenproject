@@ -1,9 +1,9 @@
 import 'package:empprojectdemo/constants/colors.dart';
 import 'package:empprojectdemo/provider/bottomnav_provider.dart';
-import 'package:empprojectdemo/screens/AdminBottomnavBarScreens/AdminAttendanceScreen.dart';
-import 'package:empprojectdemo/screens/AdminBottomnavBarScreens/AdminHomeScreen.dart';
-import 'package:empprojectdemo/screens/AdminBottomnavBarScreens/AdminProfileScreen.dart';
-import 'package:empprojectdemo/screens/AdminBottomnavBarScreens/AdminTaskScreen.dart';
+import 'package:empprojectdemo/screens/AdminScreens/AdminBottomnavBarScreens/AdminAttendanceScreen.dart';
+import 'package:empprojectdemo/screens/AdminScreens/AdminBottomnavBarScreens/AdminHomeScreen.dart';
+import 'package:empprojectdemo/screens/AdminScreens/AdminBottomnavBarScreens/AdminProfileScreen.dart';
+import 'package:empprojectdemo/screens/AdminScreens/AdminBottomnavBarScreens/AdminTaskScreen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

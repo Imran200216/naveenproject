@@ -3,8 +3,8 @@ import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:empprojectdemo/constants/colors.dart';
 import 'package:empprojectdemo/provider/user_type_provider.dart';
-import 'package:empprojectdemo/screens/AdminBottomNavBar.dart';
-import 'package:empprojectdemo/screens/EmployeeBottomNavBar.dart';
+import 'package:empprojectdemo/screens/AdminScreens/AdminBottomNavBar.dart';
+import 'package:empprojectdemo/screens/EmployeeScreens/EmployeeBottomNavBar.dart';
 import 'package:empprojectdemo/widgets/mybtn.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +77,7 @@ class UserTypeScreen extends StatelessWidget {
 
                   /// Admin btn
                   MyBtn(
+                    btnColor: AppColors.primaryColor,
                     btnTitle: "Admin",
                     btnOnTap: () async {
                       if (userId.isNotEmpty) {
@@ -131,6 +132,7 @@ class UserTypeScreen extends StatelessWidget {
 
                   /// user btn
                   MyBtn(
+                    btnColor: AppColors.primaryColor,
                     btnTitle: "Employee",
                     btnOnTap: () async {
                       if (userId.isNotEmpty) {

@@ -23,9 +23,19 @@ class Employee {
   });
 
   Map<String, dynamic> toJson() => {
-        EmployeeAttendanceFields.name: name,
-        EmployeeAttendanceFields.email: email,
-        EmployeeAttendanceFields.attendance: attendanceStatus,
-        EmployeeAttendanceFields.currentDate: currentDate,
-      };
+    EmployeeAttendanceFields.name: name,
+    EmployeeAttendanceFields.email: email,
+    EmployeeAttendanceFields.attendance: attendanceStatus,
+    EmployeeAttendanceFields.currentDate: currentDate,
+  };
+
+  factory Employee.fromJson(Map<String, dynamic> json) {
+    return Employee(
+      name: json[EmployeeAttendanceFields.name] as String,
+      email: json[EmployeeAttendanceFields.email] as String,
+      attendanceStatus: json[EmployeeAttendanceFields.attendance] as String,
+      currentDate: json[EmployeeAttendanceFields.currentDate] as String,
+    );
+  }
 }
+

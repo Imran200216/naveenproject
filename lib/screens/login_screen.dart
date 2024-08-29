@@ -64,6 +64,7 @@ class LoginScreen extends StatelessWidget {
                     height: 40,
                   ),
                   MyBtn(
+                    btnColor: AppColors.primaryColor,
                     btnTitle: "Sign in with Google",
                     btnOnTap: () {
                       /// google auth functionality

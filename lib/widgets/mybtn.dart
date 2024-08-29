@@ -14,6 +14,7 @@ class MyBtn extends StatelessWidget {
   final double btnWidth;
   final double marginLeft;
   final double marginRight;
+  final Color btnColor;
 
   const MyBtn({
     super.key,
@@ -27,6 +28,7 @@ class MyBtn extends StatelessWidget {
     required this.btnWidth,
     required this.marginLeft,
     required this.marginRight,
+    required this.btnColor,
   });
 
   @override
@@ -42,7 +44,7 @@ class MyBtn extends StatelessWidget {
         width: btnWidth,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(btnBorderRadius),
-          color: AppColors.primaryColor,
+          color: btnColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

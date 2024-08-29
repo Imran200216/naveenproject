@@ -1,4 +1,5 @@
 import 'package:empprojectdemo/constants/colors.dart';
+import 'package:empprojectdemo/screens/AdminScreens/view_attendance_screen.dart';
 import 'package:empprojectdemo/widgets/mybtn.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,9 +52,16 @@ class AdminAttendanceScreen extends StatelessWidget {
               const SizedBox(
                 height: 40,
               ),
+
+              /// view attendance screen for admin
               MyBtn(
+                btnColor: AppColors.primaryColor,
                 btnTitle: "View Attendance",
-                btnOnTap: () {},
+                btnOnTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const ViewAttendanceScreen();
+                  }));
+                },
                 imgUrl: "assets/images/svg/task-icon.svg",
                 iconHeight: 24,
                 iconWidth: 24,

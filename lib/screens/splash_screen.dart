@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:empprojectdemo/constants/colors.dart';
-import 'package:empprojectdemo/screens/AdminBottomNavBar.dart';
-import 'package:empprojectdemo/screens/EmployeeBottomNavBar.dart';
+import 'package:empprojectdemo/screens/AdminScreens/AdminBottomNavBar.dart';
+import 'package:empprojectdemo/screens/EmployeeScreens/EmployeeBottomNavBar.dart';
 
 import 'package:empprojectdemo/screens/login_screen.dart';
 import 'package:empprojectdemo/screens/user_type_screen.dart';
