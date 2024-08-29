@@ -124,6 +124,7 @@ class AdminTaskScreen extends StatelessWidget {
                           adminTaskProvider.startDateTimeController,
                         );
                       },
+                      isReadOnly: true,
                       prefixIcon: Icons.date_range,
                       textFieldController:
                           adminTaskProvider.startDateTimeController,
@@ -140,6 +141,7 @@ class AdminTaskScreen extends StatelessWidget {
                           adminTaskProvider.dueDateTimeController,
                         );
                       },
+                      isReadOnly: true,
                       prefixIcon: Icons.date_range,
                       textFieldController:
                           adminTaskProvider.dueDateTimeController,

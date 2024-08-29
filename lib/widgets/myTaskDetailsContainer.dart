@@ -34,7 +34,7 @@ class MyTaskDetailsContainer extends StatelessWidget {
             Text(
               taskValue,
               style: GoogleFonts.montserrat(
-                color: AppColors.subTitleColor,
+                color: AppColors.primaryColor,
                 fontSize: 14,
                 fontWeight: FontWeight.w500,
               ),
