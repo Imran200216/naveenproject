@@ -2,6 +2,7 @@ import 'package:empprojectdemo/constants/colors.dart';
 import 'package:empprojectdemo/modals/AdminTaskSchedultModel.dart';
 import 'package:empprojectdemo/provider/admin_provider/admin_task_provider.dart';
 import 'package:empprojectdemo/provider/internet_checker_provider.dart';
+import 'package:empprojectdemo/screens/EmployeeScreens/employee_task_details_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -132,44 +133,59 @@ class EmployeeTaskScreen extends StatelessWidget {
                             itemCount: tasks.length,
                             itemBuilder: (context, index) {
                               final task = tasks[index];
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: AppColors.taskTileBgColor,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: ListTile(
-                                  contentPadding: const EdgeInsets.all(8.0),
-
-
-                                  leading: SvgPicture.asset(
-                                    "assets/images/svg/task-icon.svg",
-                                    height: 60,
-                                    width: 60,
-                                    color: AppColors.primaryColor,
-                                    fit: BoxFit.cover,
-                                  ),
-                                  title: Padding(
-                                    padding: const EdgeInsets.only(bottom: 4.0),
-
-                                    child: Text(
-                                      task.taskName,
-                                      style: GoogleFonts.montserrat(
-                                        color: AppColors.primaryColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
+                              return Column(
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return EmployeeTaskDetailsScreen(
+                                            task: task);
+                                      }));
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: AppColors.taskTileBgColor,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: ListTile(
+                                        contentPadding:
+                                            const EdgeInsets.all(8.0),
+                                        leading: SvgPicture.asset(
+                                          "assets/images/svg/task-icon.svg",
+                                          height: 60,
+                                          width: 60,
+                                          color: AppColors.primaryColor,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        title: Padding(
+                                          padding: const EdgeInsets.only(
+                                              bottom: 4.0),
+                                          child: Text(
+                                            task.taskName,
+                                            style: GoogleFonts.montserrat(
+                                              color: AppColors.primaryColor,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ),
+                                        subtitle: Text(
+                                          'Assigned to: ${task.taskAssignedPerson}\n'
+                                          'Due: ${DateFormat('dd MMM yyyy').format(task.taskDueDate.toDate())}',
+                                          style: GoogleFonts.montserrat(
+                                            color: AppColors.subTitleColor,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                  subtitle: Text(
-                                    'Assigned to: ${task.taskAssignedPerson}\n'
-                                    'Due: ${DateFormat('dd MMM yyyy').format(task.taskDueDate.toDate())}',
-                                    style: GoogleFonts.montserrat(
-                                      color: AppColors.subTitleColor,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                  const SizedBox(
+                                    height: 20,
                                   ),
-                                ),
+                                ],
                               );
                             },
                           ),

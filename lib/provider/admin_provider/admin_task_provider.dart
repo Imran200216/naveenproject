@@ -279,4 +279,10 @@ class AdminTaskProvider extends ChangeNotifier {
 
     return items;
   }
+
+  final PageController _employeeTaskDetailScreenPageController =
+      PageController();
+
+  PageController get employeeTaskDetailScreenPageController =>
+      _employeeTaskDetailScreenPageController;
 }
