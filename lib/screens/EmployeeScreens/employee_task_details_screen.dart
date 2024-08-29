@@ -3,7 +3,7 @@ import 'package:empprojectdemo/constants/colors.dart';
 import 'package:empprojectdemo/modals/AdminTaskSchedultModel.dart';
 import 'package:empprojectdemo/provider/admin_provider/admin_task_provider.dart';
 import 'package:empprojectdemo/widgets/myTaskDetailsContainer.dart';
-import 'package:empprojectdemo/widgets/mytextfield.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -80,12 +80,7 @@ class EmployeeTaskDetailsScreen extends StatelessWidget {
                               height: screenHeight * 0.6,
                               width: screenWidth,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft:
-                                      Radius.circular(screenWidth * 0.125),
-                                  bottomRight:
-                                      Radius.circular(screenWidth * 0.125),
-                                ),
+                                borderRadius: BorderRadius.zero,
                                 color: AppColors.cachedBgColor,
                               ),
                               child: Center(
@@ -104,12 +99,7 @@ class EmployeeTaskDetailsScreen extends StatelessWidget {
                               height: screenHeight * 0.6,
                               width: screenWidth,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft:
-                                      Radius.circular(screenWidth * 0.125),
-                                  bottomRight:
-                                      Radius.circular(screenWidth * 0.125),
-                                ),
+                                borderRadius: BorderRadius.zero,
                                 image: DecorationImage(
                                   image: imageProvider,
                                   fit: BoxFit.cover,
@@ -154,12 +144,7 @@ class EmployeeTaskDetailsScreen extends StatelessWidget {
                                     imageBuilder: (context, imageProvider) {
                                       return Container(
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(
-                                                screenWidth * 0.125),
-                                            bottomRight: Radius.circular(
-                                                screenWidth * 0.125),
-                                          ),
+                                          borderRadius: BorderRadius.zero,
                                           image: DecorationImage(
                                             image: imageProvider,
                                             fit: BoxFit.cover,
@@ -233,6 +218,22 @@ class EmployeeTaskDetailsScreen extends StatelessWidget {
                         ),
 
                         const SizedBox(height: 20),
+
+                        /// task given person
+                        Text(
+                          "Task given person",
+                          style: GoogleFonts.montserrat(
+                            color: AppColors.primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+
+                        /// task assigned person details
+                        MyTaskDetailsContainer(
+                          taskValue: task.taskGivenPerson,
+                        ),
                       ],
                     ),
                   ),

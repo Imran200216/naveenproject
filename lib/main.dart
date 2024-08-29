@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+
         /// google auth provider
         ChangeNotifierProvider(
           create: (_) => GoogleAuthenticationProvider(),
