@@ -7,6 +7,7 @@ import 'package:empprojectdemo/widgets/myTaskDetailsContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -183,7 +184,7 @@ class EmployeeTaskDetailsScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /// task name
+                        /// task name text
                         Text(
                           "Task Name",
                           style: GoogleFonts.montserrat(
@@ -201,7 +202,7 @@ class EmployeeTaskDetailsScreen extends StatelessWidget {
 
                         const SizedBox(height: 20),
 
-                        /// task assigned person
+                        /// task assigned person text
                         Text(
                           "Task assigned person",
                           style: GoogleFonts.montserrat(
@@ -212,14 +213,14 @@ class EmployeeTaskDetailsScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
 
-                        /// task assigned person details
+                        /// task assigned person detail
                         MyTaskDetailsContainer(
                           taskValue: task.taskAssignedPerson,
                         ),
 
                         const SizedBox(height: 20),
 
-                        /// task given person
+                        /// task given person text
                         Text(
                           "Task given person",
                           style: GoogleFonts.montserrat(
@@ -230,9 +231,51 @@ class EmployeeTaskDetailsScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
 
-                        /// task assigned person details
+                        /// task given person detail
                         MyTaskDetailsContainer(
                           taskValue: task.taskGivenPerson,
+                        ),
+
+                        const SizedBox(
+                          height: 20,
+                        ),
+
+                        /// task start date text
+                        Text(
+                          "Task start date",
+                          style: GoogleFonts.montserrat(
+                            color: AppColors.primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+
+                        /// task started date detail
+                        MyTaskDetailsContainer(
+                          taskValue: DateFormat('dd MMM yyyy')
+                              .format(task.taskStartedDate.toDate()),
+                        ),
+
+                        const SizedBox(
+                          height: 20,
+                        ),
+
+                        /// task due date text
+                        Text(
+                          "Task due date",
+                          style: GoogleFonts.montserrat(
+                            color: AppColors.primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+
+                        /// task started date detail
+                        MyTaskDetailsContainer(
+                          taskValue: DateFormat('dd MMM yyyy')
+                              .format(task.taskDueDate.toDate()),
                         ),
                       ],
                     ),
