@@ -93,7 +93,7 @@ class AdminTaskScreen extends StatelessWidget {
                       textFieldController: adminTaskProvider.taskNameController,
                       textFieldName: "Task Name",
                       hintText: "Create task name",
-                      simpleTextTextFieldName: "Task Name",
+                      simpleTextTextFieldName: "Task Name*",
                     ),
 
                     /// task assigned to the person
@@ -103,7 +103,7 @@ class AdminTaskScreen extends StatelessWidget {
                           adminTaskProvider.taskAssignedPersonController,
                       textFieldName: "Task Assigned Person",
                       hintText: "Task assigned",
-                      simpleTextTextFieldName: "Task Assigned Person",
+                      simpleTextTextFieldName: "Task Assigned Person*",
                     ),
 
                     /// Task given by the person
@@ -113,7 +113,7 @@ class AdminTaskScreen extends StatelessWidget {
                           adminTaskProvider.taskGivenPersonController,
                       textFieldName: "Task Given Person",
                       hintText: "Task given person",
-                      simpleTextTextFieldName: "Task Given Person",
+                      simpleTextTextFieldName: "Task Given Person*",
                     ),
 
                     /// Start Date Text field
@@ -129,7 +129,7 @@ class AdminTaskScreen extends StatelessWidget {
                           adminTaskProvider.startDateTimeController,
                       textFieldName: "Task Started Date",
                       hintText: "Task started date",
-                      simpleTextTextFieldName: "Task Started Date",
+                      simpleTextTextFieldName: "Task Started Date*",
                     ),
 
                     /// End Date Text field
@@ -145,7 +145,7 @@ class AdminTaskScreen extends StatelessWidget {
                           adminTaskProvider.dueDateTimeController,
                       textFieldName: "Task Due Date",
                       hintText: "Task due date",
-                      simpleTextTextFieldName: "Task Due Date",
+                      simpleTextTextFieldName: "Task Due Date*",
                     ),
 
                     const SizedBox(
@@ -170,7 +170,7 @@ class AdminTaskScreen extends StatelessWidget {
                     ),
 
                     const SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
                   ],
                 ),

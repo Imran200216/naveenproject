@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:empprojectdemo/constants/colors.dart';
 import 'package:empprojectdemo/provider/authentication_provider/google_auth_provider.dart';
 import 'package:empprojectdemo/provider/internet_checker_provider.dart';
+import 'package:empprojectdemo/screens/EmployeeScreens/employee_about_app_screen.dart';
+
 import 'package:empprojectdemo/widgets/myprofilecard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,15 +13,13 @@ import 'package:provider/provider.dart';
 class EmployeeProfileScreen extends StatelessWidget {
   const EmployeeProfileScreen({super.key});
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Consumer2<GoogleAuthenticationProvider, InternetCheckerProvider>(
-      builder: (
-        context,
-        googleAuthProvider,
-        internetCheckerProvider,
-        child,
-      ) {
+      builder: (context,
+          googleAuthProvider,
+          internetCheckerProvider,
+          child,) {
         final user = googleAuthProvider.user;
 
         if (!internetCheckerProvider.isNetworkConnected) {
@@ -75,11 +75,11 @@ class EmployeeProfileScreen extends StatelessWidget {
                       image: DecorationImage(
                         image: user.photoURL != null
                             ? CachedNetworkImageProvider(
-                                user.photoURL!,
-                              )
+                          user.photoURL!,
+                        )
                             : const AssetImage(
-                                "assets/images/png/nouser-img.png",
-                              ),
+                          "assets/images/png/nouser-img.png",
+                        ),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -125,16 +125,14 @@ class EmployeeProfileScreen extends StatelessWidget {
                 MyProfileCard(
                   cardIcon: Icons.person,
                   cardTitle: "About app",
-                  cardOnTap: () {},
+                  cardOnTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                          return const EmployeeAboutAppScreen();
+                        }));
+                  },
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                MyProfileCard(
-                  cardIcon: Icons.details,
-                  cardTitle: "Personal details",
-                  cardOnTap: () {},
-                ),
+
                 const SizedBox(
                   height: 20,
                 ),

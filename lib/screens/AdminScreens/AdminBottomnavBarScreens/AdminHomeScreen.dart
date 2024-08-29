@@ -130,44 +130,52 @@ class AdminHomeScreen extends StatelessWidget {
                           itemCount: tasks.length,
                           itemBuilder: (context, index) {
                             final task = tasks[index];
-                            return Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.taskTileBgColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: ListTile(
-                                contentPadding: const EdgeInsets.all(8.0),
+                            return Column(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: AppColors.taskTileBgColor,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: ListTile(
+                                    contentPadding: const EdgeInsets.all(8.0),
 
-                                // Background color of the tile
-                                leading: SvgPicture.asset(
-                                  "assets/images/svg/task-icon.svg",
-                                  height: 60,
-                                  width: 60,
-                                  color: AppColors.primaryColor,
-                                  fit: BoxFit.cover,
-                                ),
-                                title: Padding(
-                                  padding: const EdgeInsets.only(bottom: 4.0),
-                                  // Spacing between title and subtitle
-                                  child: Text(
-                                    task.taskName,
-                                    style: GoogleFonts.montserrat(
+                                    // Background color of the tile
+                                    leading: SvgPicture.asset(
+                                      "assets/images/svg/task-icon.svg",
+                                      height: 60,
+                                      width: 60,
                                       color: AppColors.primaryColor,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    title: Padding(
+                                      padding:
+                                          const EdgeInsets.only(bottom: 4.0),
+                                      // Spacing between title and subtitle
+                                      child: Text(
+                                        task.taskName,
+                                        style: GoogleFonts.montserrat(
+                                          color: AppColors.primaryColor,
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                    subtitle: Text(
+                                      'Assigned to: ${task.taskAssignedPerson}\n'
+                                      'Due: ${DateFormat('dd MMM yyyy').format(task.taskDueDate.toDate())}',
+                                      style: GoogleFonts.montserrat(
+                                        color: AppColors.subTitleColor,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ),
                                 ),
-                                subtitle: Text(
-                                  'Assigned to: ${task.taskAssignedPerson}\n'
-                                  'Due: ${DateFormat('dd MMM yyyy').format(task.taskDueDate.toDate())}',
-                                  style: GoogleFonts.montserrat(
-                                    color: AppColors.subTitleColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                                const SizedBox(
+                                  height: 20,
                                 ),
-                              ),
+                              ],
                             );
                           },
                         ),

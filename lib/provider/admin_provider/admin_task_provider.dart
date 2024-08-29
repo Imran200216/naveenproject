@@ -92,6 +92,38 @@ class AdminTaskProvider extends ChangeNotifier {
 
   Future<void> addTaskToEmployees(BuildContext context) async {
     try {
+      // Check if any field is empty
+      if (taskNameController.text.trim().isEmpty ||
+          taskAssignedPersonController.text.trim().isEmpty ||
+          taskGivenPersonController.text.trim().isEmpty ||
+          startDateTimeController.text.trim().isEmpty ||
+          dueDateTimeController.text.trim().isEmpty ||
+          _selectedImages.isEmpty) {
+        // Show a toast message to inform the user to fill all the fields
+        DelightToastBar(
+          position: DelightSnackbarPosition.top,
+          autoDismiss: true,
+          snackbarDuration: const Duration(seconds: 5),
+          builder: (context) => ToastCard(
+            color: AppColors.failureToastColor,
+            leading: Icon(
+              Icons.error,
+              color: AppColors.whiteColor,
+              size: 28,
+            ),
+            title: Text(
+              "Please fill all the required fields.",
+              style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+                color: AppColors.whiteColor,
+              ),
+            ),
+          ),
+        ).show(context);
+        return;
+      }
+
       final DateTime startDate =
           DateFormat("dd MMM yyyy").parse(startDateTimeController.text.trim());
       final DateTime dueDate =

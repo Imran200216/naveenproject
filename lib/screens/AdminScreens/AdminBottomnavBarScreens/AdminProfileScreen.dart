@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:empprojectdemo/constants/colors.dart';
 import 'package:empprojectdemo/provider/authentication_provider/google_auth_provider.dart';
 import 'package:empprojectdemo/provider/internet_checker_provider.dart';
+import 'package:empprojectdemo/screens/AdminScreens/admin_about_app_screen.dart';
+
 import 'package:empprojectdemo/widgets/myprofilecard.dart';
 
 import 'package:flutter/material.dart';
@@ -125,19 +127,17 @@ class AdminProfileScreen extends StatelessWidget {
                 MyProfileCard(
                   cardIcon: Icons.person,
                   cardTitle: "About app",
-                  cardOnTap: () {},
+                  cardOnTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const AdminAboutAppScreen();
+                    }));
+                  },
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                MyProfileCard(
-                  cardIcon: Icons.details,
-                  cardTitle: "Personal details",
-                  cardOnTap: () {},
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
+
                 MyProfileCard(
                   cardIcon: Icons.logout,
                   cardTitle: "Sign out",
