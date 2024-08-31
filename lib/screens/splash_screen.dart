@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:empprojectdemo/constants/colors.dart';
 import 'package:empprojectdemo/screens/AdminScreens/AdminBottomNavBar.dart';
 import 'package:empprojectdemo/screens/EmployeeScreens/EmployeeBottomNavBar.dart';
+import 'package:empprojectdemo/screens/EmployeeScreens/email_auth_login_screen.dart';
 
-import 'package:empprojectdemo/screens/login_screen.dart';
 import 'package:empprojectdemo/screens/user_type_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> _initializeApp() async {
     // Check if the user is signed in
-    final bool isSignedIn = await _checkGoogleSignInStatus();
+    final bool isSignedIn = await _checkEmailSignInStatus();
 
     // Set up a timer to navigate to the appropriate screen after 3 seconds
     Timer(
@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const LoginScreen(),
+              builder: (context) => const EmailAuthLoginScreen(),
             ),
           );
         } else {
@@ -48,9 +48,9 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  Future<bool> _checkGoogleSignInStatus() async {
+  Future<bool> _checkEmailSignInStatus() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('isSignedIn') ?? false;
+    return prefs.getBool('isLoggedIn') ?? false;
   }
 
   Future<void> _checkUserType() async {

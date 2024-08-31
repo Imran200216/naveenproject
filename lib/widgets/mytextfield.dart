@@ -11,6 +11,7 @@ class MyTextField extends StatelessWidget {
   final VoidCallback? onTap;
   final bool isReadOnly;
   final VoidCallback? onSuffixTap;
+  final TextInputType? keyboardType;
 
   const MyTextField({
     super.key,
@@ -21,7 +22,7 @@ class MyTextField extends StatelessWidget {
     required this.prefixIcon,
     this.onTap,
     this.isReadOnly = false,
-    this.onSuffixTap,
+    this.onSuffixTap, this.keyboardType,
   });
 
   @override
@@ -40,6 +41,7 @@ class MyTextField extends StatelessWidget {
           height: 20,
         ),
         TextField(
+          keyboardType: keyboardType,
           readOnly: isReadOnly,
           onTap: onTap,
           style: GoogleFonts.montserrat(

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:empprojectdemo/constants/colors.dart';
-import 'package:empprojectdemo/provider/authentication_provider/google_auth_provider.dart';
+import 'package:empprojectdemo/provider/authentication_provider/email_auth_provider.dart';
+
 import 'package:empprojectdemo/provider/internet_checker_provider.dart';
 import 'package:empprojectdemo/screens/AdminScreens/admin_about_app_screen.dart';
 
@@ -16,14 +17,14 @@ class AdminProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<GoogleAuthenticationProvider, InternetCheckerProvider>(
+    return Consumer2<EmailAuthenticationProvider, InternetCheckerProvider>(
       builder: (
         context,
-        googleAuthProvider,
+        emailAuthProvider,
         internetCheckerProvider,
         child,
       ) {
-        final user = googleAuthProvider.user;
+        final user = emailAuthProvider.emailUser;
 
         if (!internetCheckerProvider.isNetworkConnected) {
           return Center(
@@ -142,7 +143,7 @@ class AdminProfileScreen extends StatelessWidget {
                   cardIcon: Icons.logout,
                   cardTitle: "Sign out",
                   cardOnTap: () {
-                    googleAuthProvider.signOutWithGoogle(context);
+                    emailAuthProvider.signOut(context);
                   },
                 ),
               ],

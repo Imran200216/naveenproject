@@ -82,7 +82,7 @@ class UserTypeScreen extends StatelessWidget {
                     btnOnTap: () async {
                       if (userId.isNotEmpty) {
                         await userTypeProvider
-                            .updateUserType(userId, 'admin')
+                            .updateUserTypeByEmailAuth(userId, 'admin')
                             .then((value) {
                           DelightToastBar(
                             position: DelightSnackbarPosition.top,
@@ -137,7 +137,7 @@ class UserTypeScreen extends StatelessWidget {
                     btnOnTap: () async {
                       if (userId.isNotEmpty) {
                         await userTypeProvider
-                            .updateUserType(userId, 'employee')
+                            .updateUserTypeByEmailAuth(userId, 'employee')
                             .then((value) {
                           DelightToastBar(
                             position: DelightSnackbarPosition.top,
