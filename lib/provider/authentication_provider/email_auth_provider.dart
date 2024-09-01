@@ -3,11 +3,12 @@ import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:empprojectdemo/constants/colors.dart';
-import 'package:empprojectdemo/screens/EmployeeScreens/email_auth_login_screen.dart';
+import 'package:empprojectdemo/screens/AdminScreens/AdminBottomNavBar.dart';
+import 'package:empprojectdemo/screens/EmployeeScreens/EmployeeBottomNavBar.dart';
+import 'package:empprojectdemo/screens/email_auth_login_screen.dart';
 import 'package:empprojectdemo/screens/email_user_photo_screen.dart';
 import 'package:empprojectdemo/screens/user_type_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,8 +18,11 @@ class EmailAuthenticationProvider extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool _isLoading = false;
+  String _errorMessage = '';
 
   bool get isLoading => _isLoading;
+
+  String get errorMessage => _errorMessage;
 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController registerEmailController = TextEditingController();
@@ -26,15 +30,11 @@ class EmailAuthenticationProvider extends ChangeNotifier {
       TextEditingController();
   final TextEditingController registerConfirmPasswordController =
       TextEditingController();
-
   final TextEditingController loginEmailController = TextEditingController();
   final TextEditingController loginPasswordController = TextEditingController();
+  final TextEditingController forgetPasswordEmailController =
+      TextEditingController();
 
-  String _errorMessage = '';
-
-  String get errorMessage => _errorMessage;
-
-  // Getter for current user
   User? get emailUser => _auth.currentUser;
 
   Future<void> _saveLoginState(bool isLoggedIn) async {
@@ -42,13 +42,6 @@ class EmailAuthenticationProvider extends ChangeNotifier {
     await prefs.setBool('isLoggedIn', isLoggedIn);
   }
 
-  // Function to get saved login state
-  Future<bool> _getLoginState() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('isLoggedIn') ?? false;
-  }
-
-  // Function to register with email and password
   Future<void> registerWithEmailPassword(BuildContext context) async {
     final String name = nameController.text.trim();
     final String email = registerEmailController.text.trim();
@@ -56,84 +49,30 @@ class EmailAuthenticationProvider extends ChangeNotifier {
     final String confirmPassword =
         registerConfirmPasswordController.text.trim();
 
-    // Check if any field is empty
     if (name.isEmpty ||
         email.isEmpty ||
         password.isEmpty ||
         confirmPassword.isEmpty) {
-      _errorMessage = "Please fill out all fields";
-      DelightToastBar(
-        snackbarDuration: const Duration(seconds: 5),
-        autoDismiss: true,
-        position: DelightSnackbarPosition.top,
-        builder: (context) => ToastCard(
-          color: AppColors.failureToastColor,
-          leading: Icon(
-            Icons.warning,
-            color: AppColors.whiteColor,
-            size: 28,
-          ),
-          title: Text(
-            _errorMessage,
-            style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-              color: AppColors.whiteColor,
-            ),
-          ),
-        ),
-      ).show(context);
-      notifyListeners();
+      _showErrorToast(context, "Please fill out all fields");
       return;
     }
 
-    // Check if passwords match
     if (password != confirmPassword) {
-      _errorMessage = "Passwords do not match";
-      DelightToastBar(
-        snackbarDuration: const Duration(seconds: 5),
-        autoDismiss: true,
-        position: DelightSnackbarPosition.top,
-        builder: (context) => ToastCard(
-          color: AppColors.failureToastColor,
-          leading: Icon(
-            Icons.error,
-            color: AppColors.whiteColor,
-            size: 28,
-          ),
-          title: Text(
-            "Password doesn't match!",
-            style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-              color: AppColors.whiteColor,
-            ),
-          ),
-        ),
-      ).show(context);
-      notifyListeners();
+      _showErrorToast(context, "Passwords do not match");
       return;
     }
 
-    _isLoading = true;
-    _errorMessage = ''; // Clear previous errors
-    notifyListeners();
+    _setLoadingState(true);
+    _clearErrorMessage();
 
     try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
       User? emailUser = userCredential.user;
       if (emailUser != null) {
         await emailUser.updateDisplayName(name);
-
-        // Save login state
         await _saveLoginState(true);
 
-        // Store user details in Fire store
         await FirebaseFirestore.instance
             .collection('userByEmailAuth')
             .doc(emailUser.uid)
@@ -143,176 +82,66 @@ class EmailAuthenticationProvider extends ChangeNotifier {
           'uid': emailUser.uid,
         });
 
-        nameController.clear();
-        registerEmailController.clear();
-        registerPasswordController.clear();
-        registerConfirmPasswordController.clear();
-
-        DelightToastBar(
-          snackbarDuration: const Duration(seconds: 5),
-          autoDismiss: true,
-          position: DelightSnackbarPosition.top,
-          builder: (context) => ToastCard(
-            color: AppColors.successToastColor,
-            leading: SvgPicture.asset(
-              "assets/images/svg/auth-success-icon.svg",
-              height: 28,
-              width: 28,
-              fit: BoxFit.cover,
-              color: AppColors.whiteColor,
-            ),
-            title: Text(
-              "Registration Successful!",
-              style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-                color: AppColors.whiteColor,
-              ),
-            ),
-          ),
-        ).show(context);
+        _clearControllers();
+        _showSuccessToast(context, "Registration Successful!");
 
         Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => EmailUserPhotoScreen(
-                      uid: emailUser.uid,
-                    )));
+          context,
+          MaterialPageRoute(
+              builder: (context) => EmailUserPhotoScreen(uid: emailUser.uid)),
+        );
       }
     } on FirebaseAuthException catch (e) {
-      _errorMessage = e.message ?? "An error occurred";
-
-      DelightToastBar(
-        position: DelightSnackbarPosition.top,
-        autoDismiss: true,
-        snackbarDuration: const Duration(seconds: 5),
-        builder: (context) => ToastCard(
-          color: AppColors.failureToastColor,
-          leading: Icon(
-            Icons.error,
-            color: AppColors.whiteColor,
-            size: 20,
-          ),
-          title: Text(
-            _errorMessage,
-            style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-              color: AppColors.whiteColor,
-            ),
-          ),
-        ),
-      ).show(context);
+      _showErrorToast(context, e.message ?? "An error occurred");
     } finally {
-      _isLoading = false;
-      notifyListeners();
+      _setLoadingState(false);
     }
   }
 
-  // Function to log in with email and password
   Future<void> loginWithEmailPassword(BuildContext context) async {
     final String email = loginEmailController.text.trim();
     final String password = loginPasswordController.text.trim();
 
-    // Check if any field is empty
     if (email.isEmpty || password.isEmpty) {
-      _errorMessage = "Please fill out all fields";
-      DelightToastBar(
-        snackbarDuration: const Duration(seconds: 5),
-        autoDismiss: true,
-        position: DelightSnackbarPosition.top,
-        builder: (context) => ToastCard(
-          color: AppColors.failureToastColor,
-          leading: Icon(
-            Icons.warning,
-            color: AppColors.whiteColor,
-            size: 28,
-          ),
-          title: Text(
-            _errorMessage,
-            style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-              color: AppColors.whiteColor,
-            ),
-          ),
-        ),
-      ).show(context);
-      notifyListeners();
+      _showErrorToast(context, "Please fill out all fields");
       return;
     }
 
-    _isLoading = true;
-    _errorMessage = ''; // Clear previous errors
-    notifyListeners();
+    _setLoadingState(true);
+    _clearErrorMessage();
 
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
+          email: email, password: password);
       User? emailUser = userCredential.user;
       if (emailUser != null) {
         await _saveLoginState(true);
 
-        loginEmailController.clear();
-        loginPasswordController.clear();
+        _clearControllers();
+        _showSuccessToast(context, "Login Successful!");
 
-        DelightToastBar(
-          snackbarDuration: const Duration(seconds: 5),
-          autoDismiss: true,
-          position: DelightSnackbarPosition.top,
-          builder: (context) => ToastCard(
-            color: AppColors.successToastColor,
-            leading: SvgPicture.asset(
-              "assets/images/svg/auth-success-icon.svg",
-              height: 28,
-              width: 28,
-              fit: BoxFit.cover,
-              color: AppColors.whiteColor,
-            ),
-            title: Text(
-              "Login Successful!",
-              style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-                color: AppColors.whiteColor,
-              ),
-            ),
-          ),
-        ).show(context);
+        final prefs = await SharedPreferences.getInstance();
+        final String? personType = prefs.getString('personType');
 
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const UserTypeScreen()));
+        if (personType == null) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const UserTypeScreen()));
+        } else {
+          if (personType == 'admin') {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => AdminBottomNavBar()));
+          } else if (personType == 'employee') {
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EmployeeBottomNavBar()));
+          }
+        }
       }
     } on FirebaseAuthException catch (e) {
-      _errorMessage = e.message ?? "An error occurred";
-
-      DelightToastBar(
-        snackbarDuration: const Duration(seconds: 5),
-        autoDismiss: true,
-        position: DelightSnackbarPosition.top,
-        builder: (context) => ToastCard(
-          color: AppColors.failureToastColor,
-          leading: Icon(
-            Icons.error,
-            color: AppColors.whiteColor,
-            size: 28,
-          ),
-          title: Text(
-            _errorMessage,
-            style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-              color: AppColors.whiteColor,
-            ),
-          ),
-        ),
-      ).show(context);
+      _showErrorToast(context, e.message ?? "An error occurred");
     } finally {
-      _isLoading = false;
-      notifyListeners();
+      _setLoadingState(false);
     }
   }
 
@@ -320,122 +149,96 @@ class EmailAuthenticationProvider extends ChangeNotifier {
     try {
       await _auth.signOut();
       await _saveLoginState(false);
+      _showSuccessToast(context, "Sign Out Successful!");
 
-      // Show success toast
-      DelightToastBar(
-        snackbarDuration: const Duration(seconds: 5),
-        autoDismiss: true,
-        position: DelightSnackbarPosition.top,
-        builder: (context) => ToastCard(
-          color: AppColors.successToastColor,
-          leading: SvgPicture.asset(
-            "assets/images/svg/auth-success-icon.svg",
-            height: 28,
-            width: 28,
-            fit: BoxFit.cover,
-            color: AppColors.whiteColor,
-          ),
-          title: Text(
-            "Sign Out Successful!",
-            style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-              color: AppColors.whiteColor,
-            ),
-          ),
-        ),
-      ).show(context);
-
-      // Navigate to GetStartedScreen
       Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const EmailAuthLoginScreen()),
-      );
+          context,
+          MaterialPageRoute(
+              builder: (context) => const EmailAuthLoginScreen()));
     } catch (e) {
-      // Handle sign-out error (optional)
-      DelightToastBar(
-        snackbarDuration: const Duration(seconds: 5),
-        autoDismiss: true,
-        position: DelightSnackbarPosition.top,
-        builder: (context) => ToastCard(
-          color: AppColors.failureToastColor,
-          leading: Icon(
-            Icons.error,
-            color: AppColors.whiteColor,
-            size: 28,
-          ),
-          title: Text(
-            "Sign Out Failed!",
-            style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-              color: AppColors.whiteColor,
-            ),
-          ),
-        ),
-      ).show(context);
+      _showErrorToast(context, "Sign Out Failed!");
     }
   }
-
-  /// forget password functionality
-  final TextEditingController forgetPasswordEmailController =
-      TextEditingController();
 
   Future<void> resetPassword(BuildContext context) async {
     try {
       await FirebaseAuth.instance
           .sendPasswordResetEmail(
-        email: forgetPasswordEmailController.text.trim(),
-      )
+              email: forgetPasswordEmailController.text.trim())
           .then((value) {
-        // Success toast
-        DelightToastBar(
-          snackbarDuration: const Duration(seconds: 5),
-          autoDismiss: true,
-          position: DelightSnackbarPosition.top,
-          builder: (context) => ToastCard(
-            color: AppColors.successToastColor,
-            leading: SvgPicture.asset(
-              "assets/images/svg/auth-success-icon.svg",
-              height: 28,
-              width: 28,
-              fit: BoxFit.cover,
-              color: AppColors.whiteColor,
-            ),
-            title: Text(
-              "Password reset link sent! Check your email",
-              style: GoogleFonts.montserrat(
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-                color: AppColors.whiteColor,
-              ),
-            ),
-          ),
-        ).show(context);
+        forgetPasswordEmailController.clear();
+        _showSuccessToast(
+            context, "Password reset link sent! Check your email");
       });
-    } on FirebaseAuthException catch (e) {
-      // Failure toast
-      DelightToastBar(
-        snackbarDuration: const Duration(seconds: 5),
-        autoDismiss: true,
-        position: DelightSnackbarPosition.top,
-        builder: (context) => ToastCard(
-          color: AppColors.failureToastColor,
-          leading: Icon(
-            Icons.error,
-            color: AppColors.whiteColor,
-            size: 28,
-          ),
-          title: Text(
-            e.message ?? "An error occurred. Please try again.",
-            style: GoogleFonts.montserrat(
+    } catch (e) {
+      _showErrorToast(context, "Failed to send reset link. Try again later.");
+    }
+  }
+
+  void _showErrorToast(BuildContext context, String message) {
+    _errorMessage = message;
+    DelightToastBar(
+      snackbarDuration: const Duration(seconds: 5),
+      autoDismiss: true,
+      position: DelightSnackbarPosition.top,
+      builder: (context) => ToastCard(
+        color: AppColors.failureToastColor,
+        leading: Icon(Icons.error, color: AppColors.whiteColor, size: 28),
+        title: Text(
+          _errorMessage,
+          style: GoogleFonts.montserrat(
               fontWeight: FontWeight.w600,
               fontSize: 14,
-              color: AppColors.whiteColor,
-            ),
-          ),
+              color: AppColors.whiteColor),
         ),
-      ).show(context);
-    }
+      ),
+    ).show(context);
+    notifyListeners();
+  }
+
+  void _showSuccessToast(BuildContext context, String message) {
+    DelightToastBar(
+      snackbarDuration: const Duration(seconds: 5),
+      autoDismiss: true,
+      position: DelightSnackbarPosition.top,
+      builder: (context) => ToastCard(
+        color: AppColors.successToastColor,
+        leading: SvgPicture.asset(
+          "assets/images/svg/auth-success-icon.svg",
+          height: 28,
+          width: 28,
+          fit: BoxFit.cover,
+          color: AppColors.whiteColor,
+        ),
+        title: Text(
+          message,
+          style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+              color: AppColors.whiteColor),
+        ),
+      ),
+    ).show(context);
+    notifyListeners();
+  }
+
+  void _setLoadingState(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
+  void _clearErrorMessage() {
+    _errorMessage = '';
+    notifyListeners();
+  }
+
+  void _clearControllers() {
+    nameController.clear();
+    registerEmailController.clear();
+    registerPasswordController.clear();
+    registerConfirmPasswordController.clear();
+    loginEmailController.clear();
+    loginPasswordController.clear();
+    forgetPasswordEmailController.clear();
   }
 }

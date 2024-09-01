@@ -1,6 +1,6 @@
 import 'package:empprojectdemo/constants/colors.dart';
 import 'package:empprojectdemo/provider/authentication_provider/email_auth_provider.dart';
-import 'package:empprojectdemo/screens/EmployeeScreens/email_auth_login_screen.dart';
+import 'package:empprojectdemo/screens/email_auth_login_screen.dart';
 import 'package:empprojectdemo/widgets/myPasswordTextField.dart';
 import 'package:empprojectdemo/widgets/mybtn.dart';
 import 'package:empprojectdemo/widgets/mytextfield.dart';

@@ -9,6 +9,7 @@ import 'package:empprojectdemo/provider/authentication_provider/email_auth_provi
 import 'package:empprojectdemo/provider/internet_checker_provider.dart';
 import 'package:empprojectdemo/provider/user_image_provider.dart';
 import 'package:empprojectdemo/screens/EmployeeScreens/employee_about_app_screen.dart';
+import 'package:empprojectdemo/widgets/mybtn.dart';
 
 import 'package:empprojectdemo/widgets/myprofilecard.dart';
 import 'package:flutter/material.dart';
@@ -119,59 +120,232 @@ class EmployeeProfileScreen extends StatelessWidget {
                         bottom: 0,
                         child: InkWell(
                           onTap: () {
-                            userImageProvider
-                                .pickImageFromGallery(user.uid)
-                                .then((success) {
-                              if (success) {
-                                // Show success toast
-                                DelightToastBar(
-                                  snackbarDuration: const Duration(seconds: 5),
-                                  autoDismiss: true,
-                                  position: DelightSnackbarPosition.top,
-                                  builder: (context) => ToastCard(
-                                    color: AppColors.successToastColor,
-                                    leading: SvgPicture.asset(
-                                      "assets/images/svg/auth-success-icon.svg",
-                                      height: 28,
-                                      width: 28,
-                                      fit: BoxFit.cover,
-                                      color: AppColors.whiteColor,
-                                    ),
-                                    title: Text(
-                                      "Profile updated successfully!",
-                                      style: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14,
-                                        color: AppColors.whiteColor,
-                                      ),
-                                    ),
+                            /// bottom modal sheet for accessing the profile pic from gallery and camera
+                            showModalBottomSheet(
+                                context: context,
+                                isDismissible: true,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20),
+                                    topRight: Radius.circular(20),
                                   ),
-                                ).show(context);
-                              } else {
-                                // Show failure toast
-                                DelightToastBar(
-                                  snackbarDuration: const Duration(seconds: 5),
-                                  autoDismiss: true,
-                                  position: DelightSnackbarPosition.top,
-                                  builder: (context) => ToastCard(
-                                    color: AppColors.failureToastColor,
-                                    leading: Icon(
-                                      Icons.error,
-                                      color: AppColors.whiteColor,
-                                      size: 28,
+                                ),
+                                builder: (context) {
+                                  return Container(
+                                    margin: const EdgeInsets.only(
+                                      left: 16,
+                                      right: 16,
+                                      top: 20,
+                                      bottom: 20,
                                     ),
-                                    title: Text(
-                                      "Failed to update profile!",
-                                      style: GoogleFonts.montserrat(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14,
-                                        color: AppColors.whiteColor,
-                                      ),
+                                    height: 300,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "Let's update the profile",
+                                          style: GoogleFonts.montserrat(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.primaryColor,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+
+                                        /// pick image from camera
+                                        MyBtn(
+                                          btnColor: AppColors.primaryColor,
+                                          btnTitle: "Pick image from camera",
+                                          btnOnTap: () {
+                                            userImageProvider
+                                                .pickImageFromCamera(user.uid)
+                                                .then((success) {
+                                              if (success) {
+                                                // Show success toast
+                                                DelightToastBar(
+                                                  snackbarDuration:
+                                                      const Duration(
+                                                          seconds: 5),
+                                                  autoDismiss: true,
+                                                  position:
+                                                      DelightSnackbarPosition
+                                                          .top,
+                                                  builder: (context) =>
+                                                      ToastCard(
+                                                    color: AppColors
+                                                        .successToastColor,
+                                                    leading: SvgPicture.asset(
+                                                      "assets/images/svg/auth-success-icon.svg",
+                                                      height: 28,
+                                                      width: 28,
+                                                      fit: BoxFit.cover,
+                                                      color:
+                                                          AppColors.whiteColor,
+                                                    ),
+                                                    title: Text(
+                                                      "Profile updated successfully!",
+                                                      style: GoogleFonts
+                                                          .montserrat(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 14,
+                                                        color: AppColors
+                                                            .whiteColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ).show(context);
+                                                Navigator.pop(context);
+                                              } else {
+                                                // Show failure toast
+                                                DelightToastBar(
+                                                  snackbarDuration:
+                                                      const Duration(
+                                                          seconds: 5),
+                                                  autoDismiss: true,
+                                                  position:
+                                                      DelightSnackbarPosition
+                                                          .top,
+                                                  builder: (context) =>
+                                                      ToastCard(
+                                                    color: AppColors
+                                                        .failureToastColor,
+                                                    leading: Icon(
+                                                      Icons.error,
+                                                      color:
+                                                          AppColors.whiteColor,
+                                                      size: 28,
+                                                    ),
+                                                    title: Text(
+                                                      "Failed to update profile!",
+                                                      style: GoogleFonts
+                                                          .montserrat(
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: 14,
+                                                        color: AppColors
+                                                            .whiteColor,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ).show(context);
+                                                Navigator.pop(context);
+                                              }
+                                            });
+                                          },
+                                          imgUrl:
+                                              "assets/images/svg/camera-icon.svg",
+                                          iconHeight: 26,
+                                          iconWidth: 26,
+                                          btnBorderRadius: 4,
+                                          btnHeight: 50,
+                                          btnWidth: double.infinity,
+                                          marginLeft: 0,
+                                          marginRight: 0,
+                                        ),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+
+                                        /// pick image from gallery
+                                        MyBtn(
+                                          btnColor: AppColors.primaryColor,
+                                          btnTitle: "Pick image from gallery",
+                                          btnOnTap: () {
+                                            userImageProvider
+                                                .pickImageFromGallery(user.uid)
+                                                .then(
+                                              (success) {
+                                                if (success) {
+                                                  // Show success toast
+                                                  DelightToastBar(
+                                                    snackbarDuration:
+                                                        const Duration(
+                                                            seconds: 5),
+                                                    autoDismiss: true,
+                                                    position:
+                                                        DelightSnackbarPosition
+                                                            .top,
+                                                    builder: (context) =>
+                                                        ToastCard(
+                                                      color: AppColors
+                                                          .successToastColor,
+                                                      leading: SvgPicture.asset(
+                                                        "assets/images/svg/auth-success-icon.svg",
+                                                        height: 28,
+                                                        width: 28,
+                                                        fit: BoxFit.cover,
+                                                        color: AppColors
+                                                            .whiteColor,
+                                                      ),
+                                                      title: Text(
+                                                        "Profile updated successfully!",
+                                                        style: GoogleFonts
+                                                            .montserrat(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 14,
+                                                          color: AppColors
+                                                              .whiteColor,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ).show(context);
+                                                } else {
+                                                  // Show failure toast
+                                                  DelightToastBar(
+                                                    snackbarDuration:
+                                                        const Duration(
+                                                            seconds: 5),
+                                                    autoDismiss: true,
+                                                    position:
+                                                        DelightSnackbarPosition
+                                                            .top,
+                                                    builder: (context) =>
+                                                        ToastCard(
+                                                      color: AppColors
+                                                          .failureToastColor,
+                                                      leading: Icon(
+                                                        Icons.error,
+                                                        color: AppColors
+                                                            .whiteColor,
+                                                        size: 28,
+                                                      ),
+                                                      title: Text(
+                                                        "Failed to update profile!",
+                                                        style: GoogleFonts
+                                                            .montserrat(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 14,
+                                                          color: AppColors
+                                                              .whiteColor,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ).show(context);
+                                                }
+                                              },
+                                            );
+                                          },
+                                          imgUrl:
+                                              "assets/images/svg/gallery-icon.svg",
+                                          iconHeight: 26,
+                                          iconWidth: 26,
+                                          btnBorderRadius: 4,
+                                          btnHeight: 50,
+                                          btnWidth: double.infinity,
+                                          marginLeft: 0,
+                                          marginRight: 0,
+                                        ),
+                                        const SizedBox(
+                                          height: 30,
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ).show(context);
-                              }
-                            });
+                                  );
+                                });
                           },
                           child: Container(
                             height: 50,

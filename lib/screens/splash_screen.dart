@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:empprojectdemo/constants/colors.dart';
 import 'package:empprojectdemo/screens/AdminScreens/AdminBottomNavBar.dart';
 import 'package:empprojectdemo/screens/EmployeeScreens/EmployeeBottomNavBar.dart';
-import 'package:empprojectdemo/screens/EmployeeScreens/email_auth_login_screen.dart';
+import 'package:empprojectdemo/screens/email_auth_login_screen.dart';
 
 import 'package:empprojectdemo/screens/user_type_screen.dart';
 import 'package:flutter/material.dart';
