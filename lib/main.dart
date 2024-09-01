@@ -8,6 +8,7 @@ import 'package:empprojectdemo/provider/bottomnav_provider.dart';
 
 import 'package:empprojectdemo/provider/employee_provider/employee_attendance_provider.dart';
 import 'package:empprojectdemo/provider/employee_provider/employee_task_provider.dart';
+import 'package:empprojectdemo/provider/employee_provider/more_details_employee_provider.dart';
 import 'package:empprojectdemo/provider/internet_checker_provider.dart';
 import 'package:empprojectdemo/provider/password_visibility_provider.dart';
 import 'package:empprojectdemo/provider/share_plus_provider.dart';
@@ -102,6 +103,11 @@ class MyApp extends StatelessWidget {
         /// user image email provider
         ChangeNotifierProvider(
           create: (_) => UserImageProvider(),
+        ),
+
+        /// Employee more text fields provider
+        ChangeNotifierProvider(
+          create: (_) => MoreDetailsEmployeeFieldsProvider(),
         ),
       ],
       builder: (context, child) {

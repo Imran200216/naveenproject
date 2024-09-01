@@ -424,11 +424,10 @@ class EmployeeProfileScreen extends StatelessWidget {
                   cardOnTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                          return const EmployeeDetailsScreen();
-                        }));
+                      return const EmployeeDetailsScreen();
+                    }));
                   },
                 ),
-
 
                 const SizedBox(
                   height: 20,
