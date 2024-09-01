@@ -24,6 +24,7 @@ class EmailAuthenticationProvider extends ChangeNotifier {
 
   String get errorMessage => _errorMessage;
 
+  /// text field controllers for register, login, forget password screens
   final TextEditingController nameController = TextEditingController();
   final TextEditingController registerEmailController = TextEditingController();
   final TextEditingController registerPasswordController =
@@ -42,6 +43,7 @@ class EmailAuthenticationProvider extends ChangeNotifier {
     await prefs.setBool('isLoggedIn', isLoggedIn);
   }
 
+  /// register with email and password auth
   Future<void> registerWithEmailPassword(BuildContext context) async {
     final String name = nameController.text.trim();
     final String email = registerEmailController.text.trim();
@@ -98,6 +100,7 @@ class EmailAuthenticationProvider extends ChangeNotifier {
     }
   }
 
+  /// login with email and password auth
   Future<void> loginWithEmailPassword(BuildContext context) async {
     final String email = loginEmailController.text.trim();
     final String password = loginPasswordController.text.trim();
@@ -145,6 +148,7 @@ class EmailAuthenticationProvider extends ChangeNotifier {
     }
   }
 
+  /// sign out with email and password auth
   Future<void> signOut(BuildContext context) async {
     try {
       await _auth.signOut();
@@ -160,6 +164,7 @@ class EmailAuthenticationProvider extends ChangeNotifier {
     }
   }
 
+  /// forget password with email and password auth
   Future<void> resetPassword(BuildContext context) async {
     try {
       await FirebaseAuth.instance
@@ -175,6 +180,7 @@ class EmailAuthenticationProvider extends ChangeNotifier {
     }
   }
 
+  /// error toast message
   void _showErrorToast(BuildContext context, String message) {
     _errorMessage = message;
     DelightToastBar(
@@ -196,6 +202,7 @@ class EmailAuthenticationProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// success toast message
   void _showSuccessToast(BuildContext context, String message) {
     DelightToastBar(
       snackbarDuration: const Duration(seconds: 5),

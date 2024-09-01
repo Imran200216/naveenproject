@@ -9,6 +9,7 @@ import 'package:empprojectdemo/provider/authentication_provider/email_auth_provi
 import 'package:empprojectdemo/provider/internet_checker_provider.dart';
 import 'package:empprojectdemo/provider/user_image_provider.dart';
 import 'package:empprojectdemo/screens/EmployeeScreens/employee_about_app_screen.dart';
+import 'package:empprojectdemo/screens/EmployeeScreens/employee_details_screen.dart';
 import 'package:empprojectdemo/widgets/mybtn.dart';
 
 import 'package:empprojectdemo/widgets/myprofilecard.dart';
@@ -413,6 +414,22 @@ class EmployeeProfileScreen extends StatelessWidget {
                     }));
                   },
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
+
+                MyProfileCard(
+                  cardIcon: Icons.details,
+                  cardTitle: "Employee Details",
+                  cardOnTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                          return const EmployeeDetailsScreen();
+                        }));
+                  },
+                ),
+
+
                 const SizedBox(
                   height: 20,
                 ),

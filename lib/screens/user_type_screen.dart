@@ -108,7 +108,7 @@ class UserTypeScreen extends StatelessWidget {
                             ),
                           ).show(context);
                         });
-                        Navigator.push(context,
+                        Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) {
                           return AdminBottomNavBar();
                         }));
@@ -163,7 +163,7 @@ class UserTypeScreen extends StatelessWidget {
                             ),
                           ).show(context);
                         });
-                        Navigator.push(context,
+                        Navigator.pushReplacement(context,
                             MaterialPageRoute(builder: (context) {
                           return EmployeeBottomNavBar();
                         }));
