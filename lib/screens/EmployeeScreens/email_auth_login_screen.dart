@@ -94,10 +94,6 @@ class EmailAuthLoginScreen extends StatelessWidget {
                       textFieldName: 'Enter Password', // Unique key
                     ),
 
-                    const SizedBox(
-                      height: 10,
-                    ),
-
                     /// forget password btn
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,

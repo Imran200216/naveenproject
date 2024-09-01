@@ -376,4 +376,66 @@ class EmailAuthenticationProvider extends ChangeNotifier {
       ).show(context);
     }
   }
+
+  /// forget password functionality
+  final TextEditingController forgetPasswordEmailController =
+      TextEditingController();
+
+  Future<void> resetPassword(BuildContext context) async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(
+        email: forgetPasswordEmailController.text.trim(),
+      )
+          .then((value) {
+        // Success toast
+        DelightToastBar(
+          snackbarDuration: const Duration(seconds: 5),
+          autoDismiss: true,
+          position: DelightSnackbarPosition.top,
+          builder: (context) => ToastCard(
+            color: AppColors.successToastColor,
+            leading: SvgPicture.asset(
+              "assets/images/svg/auth-success-icon.svg",
+              height: 28,
+              width: 28,
+              fit: BoxFit.cover,
+              color: AppColors.whiteColor,
+            ),
+            title: Text(
+              "Password reset link sent! Check your email",
+              style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+                color: AppColors.whiteColor,
+              ),
+            ),
+          ),
+        ).show(context);
+      });
+    } on FirebaseAuthException catch (e) {
+      // Failure toast
+      DelightToastBar(
+        snackbarDuration: const Duration(seconds: 5),
+        autoDismiss: true,
+        position: DelightSnackbarPosition.top,
+        builder: (context) => ToastCard(
+          color: AppColors.failureToastColor,
+          leading: Icon(
+            Icons.error,
+            color: AppColors.whiteColor,
+            size: 28,
+          ),
+          title: Text(
+            e.message ?? "An error occurred. Please try again.",
+            style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+              color: AppColors.whiteColor,
+            ),
+          ),
+        ),
+      ).show(context);
+    }
+  }
 }

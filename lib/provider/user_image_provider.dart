@@ -10,21 +10,27 @@ class UserImageProvider extends ChangeNotifier {
 
   File? get image => _image;
 
-  Future<void> pickImageFromCamera(String uid) async {
+  Future<bool> pickImageFromCamera(String uid) async {
     final pickedFile = await _picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
       _image = File(pickedFile.path);
       await _uploadImageToFirestore(uid);
       notifyListeners();
+      return true; // Image picked successfully
+    } else {
+      return false; // Image picking failed
     }
   }
 
-  Future<void> pickImageFromGallery(String uid) async {
+  Future<bool> pickImageFromGallery(String uid) async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       _image = File(pickedFile.path);
       await _uploadImageToFirestore(uid);
       notifyListeners();
+      return true; // Image picked successfully
+    } else {
+      return false; // Image picking failed
     }
   }
 
@@ -39,7 +45,7 @@ class UserImageProvider extends ChangeNotifier {
     // Get the image URL
     final imageUrl = await snapshot.ref.getDownloadURL();
 
-    // Update Fire store with the image URL
+    // Update Firestore with the image URL
     await FirebaseFirestore.instance
         .collection('userByEmailAuth')
         .doc(uid)
