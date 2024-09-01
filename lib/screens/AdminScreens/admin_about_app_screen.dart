@@ -86,7 +86,7 @@ The app could also include additional features like push notifications to remind
                 Row(
                   children: [
                     Text(
-                      "UUI/UX and Developed by ",
+                      "UI/UX and Developed by ",
                       style: GoogleFonts.montserrat(
                         color: AppColors.subTitleColor,
                         fontWeight: FontWeight.w500,
