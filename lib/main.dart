@@ -115,7 +115,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => EventProvider(),
         ),
-
       ],
       builder: (context, child) {
         return const MaterialApp(
