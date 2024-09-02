@@ -2,6 +2,7 @@ import 'package:empprojectdemo/api/employee_sheets_api.dart';
 import 'package:empprojectdemo/constants/colors.dart';
 import 'package:empprojectdemo/firebase_options.dart';
 import 'package:empprojectdemo/provider/admin_provider/admin_task_provider.dart';
+import 'package:empprojectdemo/provider/admin_provider/event_provider.dart';
 import 'package:empprojectdemo/provider/authentication_provider/email_auth_provider.dart';
 import 'package:empprojectdemo/provider/authentication_provider/google_auth_provider.dart';
 import 'package:empprojectdemo/provider/bottomnav_provider.dart';
@@ -109,6 +110,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => MoreDetailsEmployeeFieldsProvider(),
         ),
+
+        /// Event Provider
+        ChangeNotifierProvider(
+          create: (_) => EventProvider(),
+        ),
+
       ],
       builder: (context, child) {
         return const MaterialApp(

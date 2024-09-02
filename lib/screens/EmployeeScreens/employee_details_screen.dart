@@ -81,27 +81,24 @@ class EmployeeDetailsScreen extends StatelessWidget {
                           moreDetailsProvider.userDetails!['address'] ?? "N/A"),
                     ],
                     const SizedBox(height: 50),
-                    if (!moreDetailsProvider.isUpdatedFetched)
-                      MyBtn(
-                        btnTitle: "Add more details of employee",
-                        btnOnTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return const EmployeeMoreDetailsScreen();
-                          }));
-                        },
-                        imgUrl: "assets/images/svg/more-icon.svg",
-                        iconHeight: 24,
-                        iconWidth: 24,
-                        btnBorderRadius: 6,
-                        btnHeight: 50,
-                        btnWidth: double.infinity,
-                        marginLeft: 0,
-                        marginRight: 0,
-                        btnColor: AppColors.primaryColor,
-                      )
-                    else
-                      const SizedBox(),
+                    MyBtn(
+                      btnTitle: "Add more details of employee",
+                      btnOnTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const EmployeeMoreDetailsScreen();
+                        }));
+                      },
+                      imgUrl: "assets/images/svg/more-icon.svg",
+                      iconHeight: 24,
+                      iconWidth: 24,
+                      btnBorderRadius: 6,
+                      btnHeight: 50,
+                      btnWidth: double.infinity,
+                      marginLeft: 0,
+                      marginRight: 0,
+                      btnColor: AppColors.primaryColor,
+                    )
                   ],
                 ),
               ),

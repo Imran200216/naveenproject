@@ -3,6 +3,7 @@ import 'package:empprojectdemo/modals/AdminTaskSchedultModel.dart';
 import 'package:empprojectdemo/provider/admin_provider/admin_task_provider.dart';
 import 'package:empprojectdemo/provider/internet_checker_provider.dart';
 import 'package:empprojectdemo/screens/AdminScreens/admin_task_details_screen.dart';
+import 'package:empprojectdemo/screens/AdminScreens/creation_event_task_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,6 +50,22 @@ class AdminHomeScreen extends StatelessWidget {
         }
 
         return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              /// Creation of event task screen and displayed it in the employee home screen
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return const CreationEventTaskScreen();
+              }));
+            },
+            backgroundColor: AppColors.primaryColor,
+            child: SvgPicture.asset(
+              "assets/images/svg/task-icon.svg",
+              height: 30,
+              width: 30,
+              fit: BoxFit.cover,
+              color: AppColors.whiteColor,
+            ),
+          ),
           body: FutureBuilder<List<AdminTaskScheduleModel>>(
             future: adminTaskProvider.fetchTasks(),
             builder: (

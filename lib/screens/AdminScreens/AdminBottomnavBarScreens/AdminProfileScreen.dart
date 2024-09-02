@@ -296,6 +296,7 @@ class AdminProfileScreen extends StatelessWidget {
                                                         ),
                                                       ),
                                                     ).show(context);
+                                                    Navigator.pop(context);
                                                   } else {
                                                     // Show failure toast
                                                     DelightToastBar(
@@ -329,6 +330,7 @@ class AdminProfileScreen extends StatelessWidget {
                                                         ),
                                                       ),
                                                     ).show(context);
+                                                    Navigator.pop(context);
                                                   }
                                                 },
                                               );
