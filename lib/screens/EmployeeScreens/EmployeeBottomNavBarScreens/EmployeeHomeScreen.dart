@@ -83,7 +83,12 @@ class EmployeeHomeScreen extends StatelessWidget {
                             ),
                           ),
                         )
-                      : ListView.builder(
+                      : ListView.separated(
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(
+                              height: 20,
+                            );
+                          },
                           shrinkWrap: true,
                           // Added to make it scroll smoothly within SingleChildScrollView
                           physics: const NeverScrollableScrollPhysics(),
